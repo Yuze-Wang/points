@@ -13,5 +13,7 @@ public interface TransactionRepository extends JpaRepository<Transactions, Long>
     @Query(value = "select payer as payer, sum(points) as points from Transactions GROUP BY payer")
     List<Payers> getPointsGroupByPayer();
 
+    @Query(value = "select sum(points) as total from Transactions")
+    Integer getPointsSum();
 
 }

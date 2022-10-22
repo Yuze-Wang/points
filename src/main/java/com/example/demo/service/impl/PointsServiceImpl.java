@@ -30,6 +30,8 @@ public class PointsServiceImpl implements PointsService {
         }catch (Exception e){
             return null;
         }
+        //check whether the total points in db is bigger than the points spent;
+        if(checkTotalPoints(spentPoints)) return null;
         while(spentPoints > 0){
             Transactions curr = transactionRepository.findAll(Sort.by("timestamp")).get(0);
             Integer points = result.getOrDefault(curr.getPayer(), 0);
@@ -46,5 +48,10 @@ public class PointsServiceImpl implements PointsService {
             }
         }
         return result;
+    }
+
+    private boolean checkTotalPoints(Integer points){
+        Integer result = transactionRepository.getPointsSum();
+        return result == null || result < points;
     }
 }
