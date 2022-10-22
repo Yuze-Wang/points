@@ -17,4 +17,4 @@
 * send the get request with url http://localhost:8080/balance and send it, you will say the new transaction have already be wrote down.
 * repeat the transaction post request as much as you want
 * set up a Post request with url http://localhost:8080/spend and one params: points, which is the points you want to spend.
-* repeat the balance get request and say the result
+* repeat the balance get request and see the result
