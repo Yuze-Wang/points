@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.impl.TransactionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +20,4 @@ public class TransactionController {
         return transactionService.saveTransaction(payer, points, timestamp);
     }
 
-    @RequestMapping("/")
-    public String test(){
-        return "Hello World";
-    }
 }

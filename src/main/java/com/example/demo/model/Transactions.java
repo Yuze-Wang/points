@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Timestamp;
 
@@ -16,14 +17,21 @@ import java.sql.Timestamp;
 @Builder
 @Data
 public class Transactions {
-    private @Id @GeneratedValue Long id;
-    private String payer;
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
+    private Long payerId;
+
+    private String payerName;
     private int points;
     private Timestamp timestamp;
 
-    public Transactions(String payer, int points, Timestamp timestamp) {
-        this.payer = payer;
+    private int available;
+
+    public Transactions(Long payerId, String payerName, int points, Timestamp timestamp) {
+        this.payerId = payerId;
+        this.payerName = payerName;
         this.points = points;
         this.timestamp = timestamp;
+        this.available = points;
     }
+
 }

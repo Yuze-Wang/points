@@ -1,19 +1,15 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.Payers;
 import com.example.demo.model.Transactions;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-import java.util.Map;
 
 public interface TransactionRepository extends JpaRepository<Transactions, Long> {
+    @Query(nativeQuery = true, value = "SELECT * From Transactions WHERE available > 0 ORDER BY timestamp LIMIT 100")
+    public List<Transactions> getHundredOldestTransaction();
 
-    @Query(value = "select payer as payer, sum(points) as points from Transactions GROUP BY payer")
-    List<Payers> getPointsGroupByPayer();
-
-    @Query(value = "select sum(points) as total from Transactions")
-    Integer getPointsSum();
-
+    @Query("select t as Transactions from Transactions t where t.payerId = ?1")
+    public List<Transactions> getPayerTransaction(Long id);
 }
